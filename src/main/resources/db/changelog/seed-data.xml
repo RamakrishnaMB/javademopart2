@@ -1,0 +1,105 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- Insert into organizers table -->
+    <changeSet id="1" author="your.name">
+        <insert tableName="organizers">
+            <column name="id" value="101"/>
+            <column name="name" value="Globomantics"/>
+            <column name="description" value="Globomantics Technology Corporation"/>
+        </insert>
+        <insert tableName="organizers">
+            <column name="id" value="102"/>
+            <column name="name" value="Carved Rock"/>
+            <column name="description" value="Carved Rock Sports Equipment"/>
+        </insert>
+    </changeSet>
+
+    <!-- Insert into venues table -->
+    <changeSet id="2" author="your.name">
+        <insert tableName="venues">
+            <column name="id" value="201"/>
+            <column name="name" value="Globomatics Main Office"/>
+            <column name="street" value="Test Street 325"/>
+            <column name="city" value="New York"/>
+            <column name="country" value="USA"/>
+        </insert>
+        <insert tableName="venues">
+            <column name="id" value="202"/>
+            <column name="name" value="Sea View Hotel"/>
+            <column name="street" value="Beach Boulevard 863"/>
+            <column name="city" value="Los Angeles"/>
+            <column name="country" value="USA"/>
+        </insert>
+    </changeSet>
+
+    <!-- Insert into events table -->
+    <changeSet id="3" author="your.name">
+        <insert tableName="events">
+            <column name="id" value="501"/>
+            <column name="name" value="Globomantics Tech Conference"/>
+            <column name="organizer_id" value="101"/>
+            <column name="venue_id" value="201"/>
+            <column name="start_date" value="2023-10-02"/>
+            <column name="end_date" value="2023-10-04"/>
+        </insert>
+        <insert tableName="events">
+            <column name="id" value="502"/>
+            <column name="name" value="Globomantics Developer Day"/>
+            <column name="organizer_id" value="101"/>
+            <column name="venue_id" value="201"/>
+            <column name="start_date" value="2024-01-10"/>
+            <column name="end_date" value="2024-01-10"/>
+        </insert>
+        <insert tableName="events">
+            <column name="id" value="503"/>
+            <column name="name" value="Carved Rock New Products Day"/>
+            <column name="organizer_id" value="102"/>
+            <column name="venue_id" value="202"/>
+            <column name="start_date" value="2024-02-29"/>
+            <column name="end_date" value="2024-02-29"/>
+        </insert>
+    </changeSet>
+
+    <!-- Insert into products table -->
+    <changeSet id="4" author="your.name">
+        <insert tableName="products">
+            <column name="id" value="801"/>
+            <column name="event_id" value="501"/>
+            <column name="name" value="Standard"/>
+            <column name="description" value="Standard Conference Ticket"/>
+            <column name="price" valueNumeric="499.00"/>
+        </insert>
+        <insert tableName="products">
+            <column name="id" value="802"/>
+            <column name="event_id" value="501"/>
+            <column name="name" value="Premium"/>
+            <column name="description" value="Premium Conference Ticket"/>
+            <column name="price" valueNumeric="649.00"/>
+        </insert>
+        <insert tableName="products">
+            <column name="id" value="803"/>
+            <column name="event_id" value="502"/>
+            <column name="name" value="Standard"/>
+            <column name="description" value="Developer Day Ticket"/>
+            <column name="price" valueNumeric="195.50"/>
+        </insert>
+        <insert tableName="products">
+            <column name="id" value="804"/>
+            <column name="event_id" value="503"/>
+            <column name="name" value="Regular"/>
+            <column name="description" value="Regular Entrance"/>
+            <column name="price" valueNumeric="35.00"/>
+        </insert>
+        <insert tableName="products">
+            <column name="id" value="805"/>
+            <column name="event_id" value="503"/>
+            <column name="name" value="VIP"/>
+            <column name="description" value="VIP Bonus Entrance"/>
+            <column name="price" valueNumeric="65.00"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
