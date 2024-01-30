@@ -1,0 +1,83 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- Create the events table -->
+    <changeSet id="1" author="demouser">
+        <createTable tableName="events">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="end_date" type="date"/>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="date"/>
+            <column name="organizer_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="venue_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create the organizers table -->
+    <changeSet id="2" author="demouser">
+        <createTable tableName="organizers">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create the products table -->
+    <changeSet id="3" author="demouser">
+        <createTable tableName="products">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="event_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric(38,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create the venues table -->
+    <changeSet id="4" author="demouser">
+        <createTable tableName="venues">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="city" type="varchar(255)"/>
+            <column name="country" type="varchar(255)"/>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Add foreign key constraints to the events table -->
+    <changeSet id="5" author="demouser">
+        <addForeignKeyConstraint baseTableName="events" baseColumnNames="organizer_id"
+                                 constraintName="fkmied7el0kcl27ul1mn6384hki"
+                                 referencedTableName="organizers" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="events" baseColumnNames="venue_id"
+                                 constraintName="fkqdxygdernwwt74hdvix9u5nr3"
+                                 referencedTableName="venues" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,8 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: javademo
+      POSTGRES_PASSWORD: javademo
+    ports:
+      - '5533:5432'
