@@ -70,8 +70,22 @@
         </createTable>
     </changeSet>
 
-    <!-- Add foreign key constraints to the events table -->
     <changeSet id="5" author="demouser">
+        <createTable tableName="registrations">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ticket_code" type="VARCHAR(255)"/>
+            <column name="attendee_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <!-- Add foreign key constraints to the events table -->
+    <changeSet id="6" author="demouser">
         <addForeignKeyConstraint baseTableName="events" baseColumnNames="organizer_id"
                                  constraintName="fkmied7el0kcl27ul1mn6384hki"
                                  referencedTableName="organizers" referencedColumnNames="id"/>

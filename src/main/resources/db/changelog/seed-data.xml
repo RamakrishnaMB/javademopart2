@@ -4,7 +4,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <!-- Insert into organizers table -->
-    <changeSet id="1" author="your.name">
+    <changeSet id="1" author="demouser">
         <insert tableName="organizers">
             <column name="id" value="101"/>
             <column name="name" value="Globomantics"/>
@@ -18,7 +18,7 @@
     </changeSet>
 
     <!-- Insert into venues table -->
-    <changeSet id="2" author="your.name">
+    <changeSet id="2" author="demouser">
         <insert tableName="venues">
             <column name="id" value="201"/>
             <column name="name" value="Globomatics Main Office"/>
@@ -36,7 +36,7 @@
     </changeSet>
 
     <!-- Insert into events table -->
-    <changeSet id="3" author="your.name">
+    <changeSet id="3" author="demouser">
         <insert tableName="events">
             <column name="id" value="501"/>
             <column name="name" value="Globomantics Tech Conference"/>
@@ -64,7 +64,7 @@
     </changeSet>
 
     <!-- Insert into products table -->
-    <changeSet id="4" author="your.name">
+    <changeSet id="4" author="demouser">
         <insert tableName="products">
             <column name="id" value="801"/>
             <column name="event_id" value="501"/>
