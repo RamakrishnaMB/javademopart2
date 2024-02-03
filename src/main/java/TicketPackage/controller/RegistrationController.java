@@ -1,54 +1,58 @@
 package TicketPackage.controller;
+
 import TicketPackage.model.Registration;
-import TicketPackage.repository.RegistrationRepository;
+import TicketPackage.service.RegistrationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/registrations")
 public class RegistrationController {
 
-    private final RegistrationRepository registrationRepository;
+    private final RegistrationService registrationService;
 
     @Autowired
-    public RegistrationController(RegistrationRepository registrationRepository) {
-        this.registrationRepository = registrationRepository;
+    public RegistrationController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
     }
 
     @PostMapping
-    public Registration create(@RequestBody @Valid Registration registration) {
-        return registrationRepository.save(registration);
+    public ResponseEntity<Registration> create(@RequestBody @Valid Registration registration) {
+        Registration createdRegistration = registrationService.create(registration);
+        return new ResponseEntity<>(createdRegistration, HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/{ticketCode}")
-    public Registration get(@PathVariable("ticketCode") String ticketCode) {
-        return registrationRepository.findByTicketCode(ticketCode)
-                .orElseThrow(() -> new NoSuchElementException("Registration with ticket code " + ticketCode + " not found"));
+    public ResponseEntity<?> get(@PathVariable("ticketCode") String ticketCode) {
+        try {
+            return new ResponseEntity<>(registrationService.get(ticketCode), HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("Registration with ticket code " + ticketCode + " not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")
-    public Registration updateRegistration(@PathVariable Integer id, @RequestBody Registration registration) {
-        return registrationRepository.findById(id)
-                .map(existingRegistration -> {
-                    existingRegistration.setProductId(registration.getProductId());
-                    existingRegistration.setTicketCode(registration.getTicketCode());
-                    existingRegistration.setAttendeeName(registration.getAttendeeName());
-                    return registrationRepository.save(existingRegistration);
-                })
-                .orElseThrow(() -> new NoSuchElementException("Registration not found with id " + id));
+    public ResponseEntity<?> updateRegistration(@PathVariable Integer id, @RequestBody Registration registration) {
+        try {
+            return new ResponseEntity<>(registrationService.updateRegistration(id, registration), HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("Registration not found with id " + id, HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteRegistration(@PathVariable Integer id) {
-        return registrationRepository.findById(id)
-                .map(registration -> {
-                    registrationRepository.delete(registration);
-                    return ResponseEntity.ok().build();
-                })
-                .orElseThrow(() -> new NoSuchElementException("Registration not found with id " + id));
+        try {
+            registrationService.deleteRegistration(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("Registration not found with id " + id, HttpStatus.NOT_FOUND);
+        }
     }
 
 //    @GetMapping("/{id}")

@@ -1,6 +1,7 @@
 package TicketPackage.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "registrations")
@@ -10,12 +11,14 @@ public class Registration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "Product id is required")
     @Column(name = "product_id", nullable = false)
     public Integer productId;
 
     @Column(name = "ticket_code")
     private String ticketCode;
 
+    @NotBlank(message = "Attendee name is required")
     @Column(name = "attendee_name", nullable = false)
     public String attendeeName;
 
