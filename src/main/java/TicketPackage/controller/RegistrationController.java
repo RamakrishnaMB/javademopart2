@@ -2,6 +2,7 @@ package TicketPackage.controller;
 
 import TicketPackage.model.Registration;
 import TicketPackage.service.RegistrationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,23 +11,30 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
+// This annotation is used at the class level and is used to define the base request mapping path
 @RestController
 @RequestMapping("/registrations")
+// This annotation is used to specify a security requirement for a specific operation
+@SecurityRequirement(name = "javainuseapi")
 public class RegistrationController {
 
+    // The service that will be used to process registration data
     private final RegistrationService registrationService;
 
+    // This annotation is used to automatically inject objects into our class
     @Autowired
     public RegistrationController(RegistrationService registrationService) {
         this.registrationService = registrationService;
     }
 
+    // This annotation is used for mapping HTTP POST requests onto specific handler methods
     @PostMapping
     public ResponseEntity<Registration> create(@RequestBody @Valid Registration registration) {
         Registration createdRegistration = registrationService.create(registration);
         return new ResponseEntity<>(createdRegistration, HttpStatus.CREATED);
     }
 
+    // This annotation is used for mapping HTTP GET requests onto specific handler methods
     @GetMapping(path = "/{ticketCode}")
     public ResponseEntity<?> get(@PathVariable("ticketCode") String ticketCode) {
         try {
@@ -36,6 +44,7 @@ public class RegistrationController {
         }
     }
 
+    // This annotation is used for mapping HTTP PUT requests onto specific handler methods
     @PutMapping("/{id}")
     public ResponseEntity<?> updateRegistration(@PathVariable Integer id, @RequestBody Registration registration) {
         try {
@@ -45,19 +54,16 @@ public class RegistrationController {
         }
     }
 
+    // This annotation is used for mapping HTTP DELETE requests onto specific handler methods
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRegistration(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteRegistration(@PathVariable Integer id) {
         try {
             registrationService.deleteRegistration(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            // Return a message in the response body with a 200 OK status
+            return new ResponseEntity<>("Registration with id " + id + " was deleted.", HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>("Registration not found with id " + id, HttpStatus.NOT_FOUND);
         }
     }
-
-//    @GetMapping("/{id}")
-//    public Registration getRegistration(@PathVariable Integer id) {
-//        return registrationRepository.findById(id).orElse(null);
-//    }
 
 }

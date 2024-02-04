@@ -1,83 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- The model version of the POM file -->
     <modelVersion>4.0.0</modelVersion>
+    <!-- The parent project from which this project inherits -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.0-M1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <!-- The group or organization that the project belongs to -->
     <groupId>TicketGroup</groupId>
+    <!-- The identifier for this artifact that is unique within the group -->
     <artifactId>TicketArtifcat</artifactId>
+    <!-- The version of the artifact -->
     <version>0.0.1-SNAPSHOT</version>
+    <!-- The name of the project -->
     <name>Ticket</name>
+    <!-- A description of the project -->
     <description>Demo project for Spring Boot fundamentals</description>
+    <!-- Properties that can be used throughout the POM -->
     <properties>
+        <!-- The Java version to use -->
         <java.version>17</java.version>
     </properties>
+    <!-- This project's dependencies -->
     <dependencies>
+        <!-- Spring Boot Data JPA Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <!--		<dependency>-->
-        <!--			<groupId>org.springframework.boot</groupId>-->
-        <!--			<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
-        <!--		</dependency>-->
+        <!-- Spring Boot Actuator Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
+        <!-- Spring Boot Security Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- SpringDoc OpenAPI UI Starter -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.0.2</version>
         </dependency>
-
+        <!-- Spring Boot Validation Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+        <!-- Spring Boot Web Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- Liquibase Core for database migrations -->
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
-
-
+        <!-- PostgreSQL JDBC driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- Spring Boot Test Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <!-- Build and plugin configuration -->
     <build>
         <plugins>
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- Liquibase Maven Plugin -->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.4.1</version>
                 <configuration>
+                    <!-- Liquibase properties file -->
                     <propertyFile>src/main/resources/liquibase.properties</propertyFile>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+    <!-- Repositories for dependencies -->
     <repositories>
         <repository>
             <id>spring-milestones</id>
@@ -88,6 +107,7 @@
             </snapshots>
         </repository>
     </repositories>
+    <!-- Repositories for plugins -->
     <pluginRepositories>
         <pluginRepository>
             <id>spring-milestones</id>
@@ -98,5 +118,4 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
 </project>
