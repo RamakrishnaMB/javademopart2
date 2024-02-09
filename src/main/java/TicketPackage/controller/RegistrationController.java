@@ -38,11 +38,23 @@ public class RegistrationController {
     @GetMapping(path = "/{ticketCode}")
     public ResponseEntity<?> get(@PathVariable("ticketCode") String ticketCode) {
         try {
-            return new ResponseEntity<>(registrationService.get(ticketCode), HttpStatus.OK);
+            // Try to get the registration with the given ticket code
+            Registration registration = registrationService.get(ticketCode);
+
+            // Check if registration is null or not found
+            if (registration == null) {
+                // If no registration is found with the given ticket code, return a 404 status code and an error message
+                return new ResponseEntity<>("Registration with ticket code " + ticketCode + " not found", HttpStatus.NOT_FOUND);
+            }
+
+            // If registration is found, return it with 200 OK status
+            return new ResponseEntity<>(registration, HttpStatus.OK);
         } catch (NoSuchElementException e) {
+            // If an exception occurs, return a 404 status code and an error message
             return new ResponseEntity<>("Registration with ticket code " + ticketCode + " not found", HttpStatus.NOT_FOUND);
         }
     }
+
 
     // This annotation is used for mapping HTTP PUT requests onto specific handler methods
     @PutMapping("/{id}")
